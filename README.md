@@ -37,18 +37,18 @@ Instead, you'll need to read it programatically and parse the data you read in f
 
 This is how the transaction log is structured:
 
-Header:
-
+### Header:
+```
 | 4 byte magic string "MPS7" | 1 byte version | 4 byte (uint32) # of records |
-
+```
 The header contains the canonical information about how the records should be processed. Be sure to validate the magic string from the header to ensure you're parsing the correct file format.
 Note: there are fewer than 100 records in the sample `txnlog.dat`, this is not true of all transaction logs though.
 
-Record:
-
+### Record:
+```
 | 1 byte record type enum | 4 byte (uint32) Unix timestamp | 8 byte (uint64) user ID |
-
-Record type enum:
+```
+### Record type enum:
 
 - 0x00: Debit
 - 0x01: Credit
