@@ -2,6 +2,7 @@
 
 class Record
   attr_reader :record_type, :timestamp, :user_id, :dollar_amount
+  
   @@total_credit = 0.0
   @@total_debit = 0.0
   @@total_autopays_started = 0
@@ -13,10 +14,10 @@ class Record
     @timestamp                = timestamp
     @user_id                  = user_id
     @dollar_amount            = dollar_amount
-    @@total_credit            += record_type == 0 ? dollar_amount : 0.0
-    @@total_debit             += record_type == 1 ? dollar_amount : 0.0
-    @@total_autopays_started  += record_type == 2 ? 1 : 0
-    @@total_autopays_ended    += record_type == 3 ? 1 : 0
+    @@total_credit            += record_type == :credit ? dollar_amount : 0.0
+    @@total_debit             += record_type == :debit ? dollar_amount : 0.0
+    @@total_autopays_started  += record_type == :start_autopay ? 1 : 0
+    @@total_autopays_ended    += record_type == :end_autopay ? 1 : 0
     self.add_user_credit_debit(record_type, user_id, dollar_amount)
   end
 
@@ -45,7 +46,7 @@ class Record
   private
   # Add user credit and debit amount from record to class variable user_balances hash
   def add_user_credit_debit(record_type, user_id, dollar_amount)
-    @@user_balances[user_id] += dollar_amount if record_type == 0
-    @@user_balances[user_id] -= dollar_amount if record_type == 1
+    @@user_balances[user_id] += dollar_amount if record_type == :credit
+    @@user_balances[user_id] -= dollar_amount if record_type == :debit
   end
 end
