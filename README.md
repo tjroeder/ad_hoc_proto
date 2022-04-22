@@ -65,5 +65,3 @@ The first record in the file, when fully parsed, will have these values:
 | Record type | Unix timestamp | user ID             | amount in dollars |
 | ----------- | -------------- | ------------------- | ----------------- |
 | 'Debit'     | 1393108945     | 4136353673894269217 | 604.274335557087  |
-
-
