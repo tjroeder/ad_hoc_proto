@@ -10,12 +10,14 @@ class Parse
     @records = self.create_records
   end
   
+  # Parse the header and verify if it is a valid MPS7 transaction.
   def parse_mps7_header
     header_row = @binary.read(9).unpack('A4CN')
     raise 'Invalid MPS7 Header String Format' unless header_row.first == 'MPS7'
     Header.new(*header_row)
   end
   
+  # Parse binary file and create transaction records.
   def create_records
     record_types = %i[credit debit start_autopay end_autopay]
     @records = []
@@ -31,7 +33,7 @@ class Parse
         @records << Record.new(record_type, *string)
       end
     end
-
+    # Verify header cannonical information of number of records in transaction.
     unless @records.size == @header.number_of_records
       raise 'Record count does not match header count validation'
     end
