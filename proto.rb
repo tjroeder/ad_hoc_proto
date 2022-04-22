@@ -6,6 +6,7 @@ require_relative './record'
 begin
   user_id = 2456938384156277127
   bin = File.open('txnlog.dat')
+  
   # Parse and create record files before calculating answers to print to console.
   Parse.new(bin)
   printf("total credit amount=%<credit>.2f\n", credit: Record.total_credit)
