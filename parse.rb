@@ -33,6 +33,7 @@ class Parse
         @records << Record.new(record_type, *string)
       end
     end
+    
     # Verify header cannonical information of number of records in transaction.
     unless @records.size == @header.number_of_records
       raise 'Record count does not match header count validation'
